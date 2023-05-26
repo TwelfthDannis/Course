@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Information</title>
+    <meta charset="UTF-8">
+    <title>Information</title>
+</head>
+<body>
+    <p th:href="@{/templates/item/info/{id}=(id=${item.getId()})}" th:text="${item.getTitle()}"/>
+    <p th:text="'Description: ' + ${item.getDescription()}" />
+    <p th:text="'Price: ' + ${item.getPrice()}" />
+    <p th:text="'Provider: ' + ${item.getProvider()}" />
+    <p th:text="'Category:' + ${item.getCategory().getName()}" />
+
+    <div th:each="img : ${item.getImageList()}">
+        <img th:src="'/img/' + ${img.getFileName()}">
+    </div>
+</body>
+</html>

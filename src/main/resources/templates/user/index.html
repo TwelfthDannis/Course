@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        .navigation .nav-link {
+            color: #c6c6c6;
+        }
+        .navigation .nav-link:hover{
+            color: white;
+        }
+        .row,input{
+            margin: 10px;
+        }
+        .btn{
+            color: #c6c6c6;
+        }
+        .btn:hover{
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+<header style="background-color: rgba(22, 22, 23, .8)">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid justify-content-end">
+                <div class="btn">
+                    <form method="get" th:action="@{/orders}">
+                        <input type="submit" value="Order" class="btn">
+                    </form>
+                </div>
+                <div class="btn">
+                    <form method="get" th:action="@{/cart}">
+                        <input type="submit" value="Cart" class="btn">
+                    </form>
+                </div>
+                <div class="btn">
+                    <form method="post" th:action="@{/logout}">
+                        <input type="submit" value="Logout" class="btn">
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"></a>
+                <hr>
+                <form th:method="POST" th:action="@{/index/search}">
+                    <fieldset>
+                        <h5>Choose to parametrs for sort,search and filter</h5>
+                        <br>
+                        <label for="search"><h6>Search for name:</h6></label>
+                        <input type="search" name="search" th:value="*{value_search}" id="search">
+                        <br>
+                        <br>
+                        <p><h6>Sort to price</h6></p>
+                        <label for="min">From</label>
+                        <input type="text" name="min" th:value="*{value_min}" id="min">
+                        <br>
+                        <br><label for="max">To</label>
+                        <input type="text" name="max" th:value="*{value_max}" id="max">
+
+                        <br><br>
+                        <input type="radio" id="ascending_price"  name="price" value="sorted_by_ascending_price">
+                        <label for="ascending_price">Upper price</label>
+                        <br>
+                        <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+                        <label for="descending_price">Down price</label>
+                        <br>
+                        <br>
+                        <button type="submit">Search</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <h3>Access items</h3>
+
+            <div class="row">
+                <div th:each="item : ${items}" style="width: 250px; height: 350px; margin: 5px; text-align: center; border: 1px dotted cadetblue; border-radius: 20px;">
+
+                    <img style="width: 100px;" th:src="'/img/' + ${item.imageList[0].getFileName()}">
+                    <br>
+                    <a class="nav-link" th:href="@{/templates/item/info/{id}(id=${item.getId()})}" th:text="${item.getTitle()}" id="title" />
+                    <p th:text="'Price: ' + ${item.getPrice()}" />
+                    <p th:text="'Category:' + ${item.getCategory().getName()}" />
+                    <a class="nav-link" th:href="@{/cart/add/{id}(id=${item.getId()})}">Add item for cart</a>
+                </div>
+
+                <h3>Result:</h3>
+
+                <div class="row">
+                    <div th:each="item : ${search_item}">
+
+                        <img style="width: 100px;" th:src="'/img/' + ${item.imageList[0].getFileName()}">
+                        <br>
+                        <a class="nav-link" th:href="@{/templates/item/info/{id}(id=${item.getId()})}" th:text="${item.getTitle()}" />
+                        <p th:text="'Price: ' + ${item.getPrice()}" />
+                        <br>
+                        <a class="nav-link" th:href="@{/cart/add/{id}(id=${item.getId()})}">Add item for cart</a>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

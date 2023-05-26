@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List order</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        .navigation .nav-link {
+            color: #c6c6c6;
+        }
+
+        .navigation .nav-link:hover {
+            color: white;
+        }
+
+        .row, input {
+            margin: 10px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+    </style>
+</head>
+<body>
+<header style="background-color: rgba(22, 22, 23, .8)">
+    <div class="container navigation">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid justify-content-end">
+                <div class="btn">
+                    <a class="nav-link" href="/admin"><b>Back</b></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="h3">List order</div>
+
+    <div th:each="orders : ${ordersList}">
+
+
+        <p th:text="'Number order: ' + ${orders.getNumber()}"/>
+        <p th:text="'ID user: ' + ${orders.getUser().getId()}"/>
+        <p th:text="'Login user: ' + ${orders.getUser().getLogin()}"/>
+        <p th:text="'Date order: ' + ${#temporals.format(orders.getDateTime(), 'dd-MMM-yyyy')}"/>
+        <p>Order item:</p>
+        <p th:text="'Item: ' + ${orders.getItem().getTitle()}"/>
+        <h5 th:text="'Total: ' + ${orders.getPrice()}"/>
+
+        <hr>
+    </div>
+</div>
+
+</body>
+</html>
