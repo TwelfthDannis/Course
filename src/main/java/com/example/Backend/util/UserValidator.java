@@ -23,7 +23,7 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         if(userService.getUserFindByLogin(user) != null){
-            errors.rejectValue("login", "", "Логин занят");
+            errors.rejectValue("login", "", "Login already is taken");
         }
     }
 }

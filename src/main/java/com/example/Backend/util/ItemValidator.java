@@ -25,7 +25,7 @@ public class ItemValidator implements Validator {
     public void validate(Object target, Errors errors) {
     Item item = (Item) target;
         if (itemsService.getItemFindByTitle(item) != null){
-            errors.rejectValue("title", "","Данное наименование товара уже используется");
+            errors.rejectValue("title", "","Name is used");
         }
     }
 }

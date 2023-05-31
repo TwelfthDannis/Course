@@ -20,11 +20,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = "Логин не может быть пустым")
+    @NotEmpty(message = "Login none is empty")
     @Column(name = "login")
     private String login;
 
-    @NotEmpty(message = "Пароль не может быть пустым")
+    @NotEmpty(message = "Password none is empty")
     @Column(name = "password")
     private String password;
 

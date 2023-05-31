@@ -27,7 +27,7 @@ public class UsersDetailsService implements UserDetailsService {
 
         if(user.isEmpty()){
 
-            throw new UsernameNotFoundException("Пользователь не найден");
+            throw new UsernameNotFoundException("User is none");
         }
         return new UserDetails(user.get());
     }
